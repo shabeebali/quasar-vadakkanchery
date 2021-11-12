@@ -2,7 +2,9 @@
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-toolbar-title> Vadakkanchery App </q-toolbar-title>
+        <q-toolbar-title
+          ><router-link to="/"> Vadakkanchery App</router-link>
+        </q-toolbar-title>
         <q-btn
           color="blue-5"
           unelevated
