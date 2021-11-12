@@ -26,13 +26,23 @@
 </template>
 <script lang="ts">
 import { useQuasar } from 'quasar';
+import { api } from 'src/boot/axios';
 import { useStore } from 'src/store';
 import { defineComponent, ref, computed, onMounted } from 'vue';
 export default defineComponent({
   setup() {
     const $q = useQuasar();
+    const familyOptions = ref<{ label: string; value: number }[]>([]);
     onMounted(() => {
       $q.loading.show();
+      api
+        .get('parents')
+        .then((res: { data: { label: string; value: number }[] }) => {
+          familyOptions.value = res.data;
+        })
+        .catch((e) => console.log(e))
+        .finally(() => $q.loading.hide());
+    });
     const $store = useStore();
     const isEn = computed(() => $store.state.lang === 'en');
     const selectFamilyLabel = computed(() =>
@@ -43,7 +53,7 @@ export default defineComponent({
     });
     return {
       model,
-      // familyOptions,
+      familyOptions,
       selectFamilyLabel,
     };
   },
