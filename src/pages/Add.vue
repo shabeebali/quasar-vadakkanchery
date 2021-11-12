@@ -123,14 +123,12 @@ export default defineComponent({
       }
       if (
         [1, 3, 5, 7, 8, 10, 12].includes(parseInt(arr[1])) &&
-        parseInt(arr[0]) > 31 &&
-        parseInt(arr[0]) <= 0
+        (parseInt(arr[0]) > 31 || parseInt(arr[0]) <= 0)
       ) {
         return false;
       } else if (
         [4, 6, 9, 11].includes(parseInt(arr[1])) &&
-        parseInt(arr[0]) > 30 &&
-        parseInt(arr[0]) <= 0
+        (parseInt(arr[0]) > 30 || parseInt(arr[0]) <= 0)
       ) {
         return false;
       } else if (parseInt(arr[0]) > 29 && isLeap(parseInt(arr[2]))) {
