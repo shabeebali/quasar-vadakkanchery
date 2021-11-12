@@ -126,14 +126,21 @@ export default defineComponent({
         (parseInt(arr[0]) > 31 || parseInt(arr[0]) <= 0)
       ) {
         return false;
-      } else if (
+      }
+      if (
         [4, 6, 9, 11].includes(parseInt(arr[1])) &&
         (parseInt(arr[0]) > 30 || parseInt(arr[0]) <= 0)
       ) {
         return false;
-      } else if (parseInt(arr[0]) > 29 && isLeap(parseInt(arr[2]))) {
+      }
+      if (
+        parseInt(arr[0]) > 29 &&
+        parseInt(arr[1]) === 2 &&
+        isLeap(parseInt(arr[2]))
+      ) {
         return false;
-      } else if (parseInt(arr[0]) > 28) {
+      }
+      if (parseInt(arr[0]) > 28 && parseInt(arr[1]) === 2) {
         return false;
       }
       return true;
