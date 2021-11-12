@@ -683,9 +683,9 @@ export default defineComponent({
     };
     const spouseHeader = computed(() => {
       if (model.value.male) {
-        return isEn.value ? "Husband's Details" : 'ഭർത്താവിന്റെ വിവരങ്ങൾ';
-      } else {
         return isEn.value ? "Wife's Details" : 'ഭാര്യയുടെ വിവരങ്ങൾ';
+      } else {
+        return isEn.value ? "Husband's Details" : 'ഭർത്താവിന്റെ വിവരങ്ങൾ';
       }
     });
     const saveFn = () => {
