@@ -1,4 +1,5 @@
 import { store } from 'quasar/wrappers'
+import { ModelInterface } from 'src/interfaces'
 import { InjectionKey } from 'vue'
 import {
   createStore,
@@ -28,7 +29,8 @@ export interface StateInterface {
   parent: {
     label: string,
     value: number
-  } | null
+  } | null,
+  model: ModelInterface | null
 }
 
 // provide typings for `this.$store`
@@ -49,7 +51,8 @@ export default store(function (/* { ssrContext } */) {
     state: {
       lang: 'en',
       selected_parent_id: null,
-      parent: null
+      parent: null,
+      model: null
     },
 
     getters: {
@@ -62,8 +65,11 @@ export default store(function (/* { ssrContext } */) {
       setLang: (state: StateInterface, data: string) => {
         state.lang = data
       },
-      setParent: (state: StateInterface, data: {label:string, value:number}) => {
+      setParent: (state: StateInterface, data: {label:string, value:number} | null) => {
         state.parent = data
+      },
+      setModel: (state: StateInterface, data: ModelInterface | null) => {
+        state.model = data
       },
     },
 
