@@ -20,7 +20,7 @@
               </div>
             </q-form>
           </q-card-section>
-          <q-card-actions>
+          <q-card-actions class="q-px-md">
             <q-btn color="primary" v-if="parent" label="Next" to="/add" />
           </q-card-actions>
         </q-card>
@@ -45,7 +45,12 @@ export default defineComponent({
           familyOptions.value = res.data;
         })
         .catch((e) => console.log(e))
-        .finally(() => $q.loading.hide());
+        .finally(() => {
+          $q.loading.hide();
+          if ($store.state.parent) {
+            model.value.parent = $store.state.parent;
+          }
+        });
     });
     const $store = useStore();
     const isEn = computed(() => $store.state.lang === 'en');
@@ -53,7 +58,7 @@ export default defineComponent({
       isEn.value ? 'Select Parent Family' : 'രക്ഷിതാക്കളെ തെരഞ്ഞെടുക്കുക '
     );
     const parent = computed(() => $store.state.parent);
-    const model = ref({
+    const model = ref<{ parent: { label: string; value: number } | null }>({
       parent: null,
     });
     const onFamilyChange = (val: { label: string; value: number } | null) => {

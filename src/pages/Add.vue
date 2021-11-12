@@ -8,6 +8,19 @@
               <div class="row">
                 <div class="col">
                   <q-input
+                    v-if="model.parent"
+                    :label="parentLabel"
+                    v-model="model.parent.label"
+                    readonly
+                    outlined
+                    square
+                    dense
+                  />
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <q-input
                     :label="nameLabel"
                     v-model="model.name"
                     outlined
@@ -49,14 +62,27 @@
   </q-page>
 </template>
 <script lang="ts">
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed, ref, onMounted } from 'vue';
 import { useStore } from 'src/store';
+import { useRouter } from 'vue-router';
 interface ModelInterface {
   name: string | null;
   dob: string | null;
+  parent: {
+    label: string;
+    value: number;
+  } | null;
 }
 export default defineComponent({
   setup() {
+    const $router = useRouter();
+    onMounted(() => {
+      if (!$store.state.parent) {
+        $router.push('/').catch((e) => console.log(e));
+      } else {
+        model.value.parent = $store.state.parent;
+      }
+    });
     const $store = useStore();
     const isEn = computed(() => $store.state.lang === 'en');
     const nameLabel = computed(() => (isEn.value ? 'Name' : 'പേര്'));
@@ -64,9 +90,13 @@ export default defineComponent({
       isEn.value ? 'Date of BIrth' : 'ജനന തീയ്യതി'
     );
     const ageLabel = computed(() => (isEn.value ? 'Age' : 'വയസ്സ്'));
+    const parentLabel = computed(() =>
+      isEn.value ? 'Parents' : 'രക്ഷിതാക്കൾ'
+    );
     const model = ref<ModelInterface>({
       name: null,
       dob: null,
+      parent: null,
     });
     const age = computed(() => {
       if (model.value.dob && validDate(model.value.dob)) {
@@ -120,6 +150,7 @@ export default defineComponent({
       model,
       age,
       validDate,
+      parentLabel,
     };
   },
 });

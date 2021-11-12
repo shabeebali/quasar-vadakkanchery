@@ -52,6 +52,12 @@ export default store(function (/* { ssrContext } */) {
       parent: null
     },
 
+    getters: {
+      parent: (state: StateInterface) => {
+        return state.parent
+      }
+    },
+
     mutations: {
       setLang: (state: StateInterface, data: string) => {
         state.lang = data
