@@ -491,9 +491,6 @@ export default defineComponent({
       if (!$store.state.parent) {
         $router.push('/').catch((e) => console.log(e));
       } else {
-        if (!$store.state.model) {
-          $router.push('/').catch((e) => console.log(e));
-        }
         model.value.parent = $store.state.parent;
       }
     });
@@ -700,7 +697,7 @@ export default defineComponent({
             .post('add', model.value)
             .then((res: { data: { message: string } }) => {
               if (res.data.message === 'success') {
-                $router.push('/success').catch((e) => console.log(e));
+                $router.replace('/success').catch((e) => console.log(e));
               }
             })
             .catch((e) => console.log(e))
