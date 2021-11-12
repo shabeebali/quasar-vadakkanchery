@@ -24,7 +24,11 @@ export interface StateInterface {
   // Declared as unknown to avoid linting issue. Best to strongly type as per the line above.
   // example: unknown,
   lang: string,
-  selected_parent_id: number | null
+  selected_parent_id: number | null,
+  parent: {
+    label: string,
+    value: number
+  } | null
 }
 
 // provide typings for `this.$store`
@@ -44,13 +48,17 @@ export default store(function (/* { ssrContext } */) {
     },
     state: {
       lang: 'en',
-      selected_parent_id: null
+      selected_parent_id: null,
+      parent: null
     },
 
     mutations: {
       setLang: (state: StateInterface, data: string) => {
         state.lang = data
-      }
+      },
+      setParent: (state: StateInterface, data: {label:string, value:number}) => {
+        state.parent = data
+      },
     },
 
     // enable strict mode (adds overhead!)

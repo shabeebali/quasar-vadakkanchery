@@ -14,11 +14,15 @@
                     outlined
                     square
                     dense
+                    @update:model-value="onFamilyChange"
                   />
                 </div>
               </div>
             </q-form>
           </q-card-section>
+          <q-card-actions>
+            <q-btn color="primary" v-if="parent" label="Next" to="/add" />
+          </q-card-actions>
         </q-card>
       </div>
     </div>
@@ -48,13 +52,19 @@ export default defineComponent({
     const selectFamilyLabel = computed(() =>
       isEn.value ? 'Select Parent Family' : 'രക്ഷിതാക്കളെ തെരഞ്ഞെടുക്കുക '
     );
+    const parent = computed(() => $store.state.parent);
     const model = ref({
       parent: null,
     });
+    const onFamilyChange = (val: { label: string; value: number } | null) => {
+      $store.commit('setParent', val);
+    };
     return {
       model,
       familyOptions,
       selectFamilyLabel,
+      onFamilyChange,
+      parent,
     };
   },
 });
