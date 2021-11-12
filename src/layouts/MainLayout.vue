@@ -3,7 +3,9 @@
     <q-header elevated>
       <q-toolbar>
         <q-toolbar-title
-          ><router-link to="/"> Vadakkanchery App</router-link>
+          ><router-link to="/" class="text-white">
+            Vadakkanchery App</router-link
+          >
         </q-toolbar-title>
         <q-btn
           color="blue-5"
