@@ -18,7 +18,7 @@
                   />
                 </div>
               </div>
-              <div class="row">
+              <div class="row q-mt-sm">
                 <div class="col">
                   <q-input
                     :label="nameLabel"
@@ -118,24 +118,27 @@ export default defineComponent({
         return false;
       }
       const arr = val.split('-');
+      if (![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].includes(parseInt(arr[1]))) {
+        return false;
+      }
       if (
         [1, 3, 5, 7, 8, 10, 12].includes(parseInt(arr[1])) &&
-        parseInt(arr[0]) <= 31 &&
-        parseInt(arr[0]) > 0
+        parseInt(arr[0]) > 31 &&
+        parseInt(arr[0]) <= 0
       ) {
-        return true;
+        return false;
       } else if (
         [4, 6, 9, 11].includes(parseInt(arr[1])) &&
-        parseInt(arr[0]) <= 30 &&
-        parseInt(arr[0]) > 0
+        parseInt(arr[0]) > 30 &&
+        parseInt(arr[0]) <= 0
       ) {
-        return true;
-      } else if (parseInt(arr[0]) <= 29 && isLeap(parseInt(arr[2]))) {
-        return true;
-      } else if (parseInt(arr[0]) <= 28) {
-        return true;
+        return false;
+      } else if (parseInt(arr[0]) > 29 && isLeap(parseInt(arr[2]))) {
+        return false;
+      } else if (parseInt(arr[0]) > 28) {
+        return false;
       }
-      return false;
+      return true;
     };
 
     const isLeap = (year: number) => {
